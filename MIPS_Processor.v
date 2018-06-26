@@ -175,7 +175,7 @@ ArithmeticLogicUnit
 	.B(ReadData2OrInmmediate_wire),
 	.Zero(Zero_wire),
 	.ALUResult(ALUResult_wire),
-	.shamt(shamt_wire)
+	.shamt(Instruction_wire[10:6])
 );
 
 assign ALUResultOut = ALUResult_wire;

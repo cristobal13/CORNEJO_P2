@@ -52,6 +52,9 @@ localparam SRL	= 4'b0111;
 			ALUResult= B << shamt;
 		  SRL:
 			ALUResult= B >> shamt;
+			LUI:
+			ALUResult= {B, 16'b0};
+			
 		default:
 			ALUResult= 0;
 		endcase // case(control)
