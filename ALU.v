@@ -48,9 +48,9 @@ localparam SRL	= 4'b0111;
 			ALUResult= A | B;
 		  NOR: // nor
 			ALUResult= ~(A|B);
-			SLL: //sll
+		  SLL: //sll
 			ALUResult= B << shamt;
-			SRL:
+		  SRL:
 			ALUResult= B >> shamt;
 		default:
 			ALUResult= 0;

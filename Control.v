@@ -26,9 +26,16 @@ module Control
 	output [2:0]ALUOp
 );
 localparam R_Type = 0;
-localparam I_Type_ADDI = 6'h8;
-localparam I_Type_ORI = 6'h0d;
-localparam I_Type_LUI = 6'hf;
+localparam I_Type_ADDI = 6'h08;
+localparam I_Type_ORI  = 6'h0d;
+localparam I_Type_LUI  = 6'h0f;
+localparam I_Type_ANDI = 6'h0c;
+localparam I_Type_LW   = 6'h23;
+localparam I_Type_SW	  = 6'h2b;
+localparam I_Type_BEQ  = 6'h04;
+localparam I_Type_BNE  = 6'h05;
+localparam I_Type_J    = 6'h02;
+localparam I_Type_JAL  = 6'h03;
 
 
 reg [10:0] ControlValues;
