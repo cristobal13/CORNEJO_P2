@@ -24,6 +24,8 @@ localparam R_Type_AND    = 9'b0111_100100;
 localparam R_Type_OR     = 9'b0111_100101;
 localparam R_Type_NOR    = 9'b0111_100111;
 localparam R_Type_ADD    = 9'b0111_100000;
+localparam R_Type_SUB    = 9'b0111_100010;
+
 localparam I_Type_ADDI   = 9'b0100_xxxxxx;
 localparam I_Type_ORI    = 9'b0001_xxxxxx;
 localparam I_Type_LUI    = 9'b0101_xxxxxx;
@@ -41,6 +43,7 @@ always@(Selector)begin
 		R_Type_OR: 		ALUControlValues = 4'b0001;
 		R_Type_NOR:    ALUControlValues = 4'b0010;
 		R_Type_ADD:    ALUControlValues = 4'b0011;
+		R_Type_SUB:    ALUControlValues = 4'b0100;
 		I_Type_ADDI:   ALUControlValues = 4'b0011;
 		I_Type_ORI:    ALUControlValues = 4'b0001;
 		I_Type_LUI:    ALUControlValues = 4'b0101;
