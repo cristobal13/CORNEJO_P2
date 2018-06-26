@@ -31,7 +31,7 @@ assign RealAddress = {2'b0,Address[(DATA_WIDTH-1):2]};
 
 	initial
 	begin
-		$readmemh("C:/MIPSProjects/MIPSProcessor_single/sources/text.dat", rom);
+		$readmemh("C:/MIPS_Proyects/MIPS_Single_Cycle_Processor/CORNEJO_P2/text.dat", rom);
 	end
 
 	always @ (RealAddress)
