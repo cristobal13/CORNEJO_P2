@@ -140,6 +140,13 @@ SignExtendForConstants
 );
 
 
+ShiftLeft2
+ShiftLeft_PC
+(
+	.DataInput(InmmediateExtend_wire),
+	.DataOutput(sll_to_add_wire)         
+);
+
 
 Multiplexer2to1
 #(
