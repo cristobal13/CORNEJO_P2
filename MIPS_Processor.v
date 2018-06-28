@@ -225,7 +225,20 @@ ArithmeticLogicUnitControl
 
 );
 
-
+DataMemory
+#(
+	.DATA_WIDTH(8),
+	.MEMORY_DEPTH(1024)
+)
+RAM
+(
+	.WriteData(ReadData2_wire),
+	.Address(ALUResult_wire),
+	.clk(clk),
+	.ReadData(ReadDataMem_wire),
+	.MemWrite(MemWrite_wire),
+	.MemRead(MemRead_wire)
+);
 
 ALU
 ArithmeticLogicUnit 
