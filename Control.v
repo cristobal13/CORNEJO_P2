@@ -46,25 +46,21 @@ always@(OP) begin
 		I_Type_ADDI:  ControlValues= 11'b0_101_00_00_100;
 		I_Type_ORI:   ControlValues= 11'b0_101_00_00_101;
 		I_Type_LUI:   ControlValues= 11'b0_101_01_00_101;
-		I_Type_ANDI:  ControlValues= 11'b0_101_00_00_101;
-		
-		
-	// I_Type_BEQ:   ControlValues= 11'b0_100_00_00_100;
 		
 		default:
 			ControlValues= 11'b0000000000;
 		endcase
 end	
 	
-assign RegDst = ControlValues[10];  //10
-assign ALUSrc = ControlValues[9];   //9
-assign MemtoReg = ControlValues[8]; //8
-assign RegWrite = ControlValues[7]; //7
-assign MemRead = ControlValues[6];  //6
-assign MemWrite = ControlValues[5]; //5
-assign BranchNE = ControlValues[4]; //4
-assign BranchEQ = ControlValues[3]; //3
-assign ALUOp = ControlValues[2:0];	//0-2
+assign RegDst = ControlValues[10];
+assign ALUSrc = ControlValues[9];
+assign MemtoReg = ControlValues[8];
+assign RegWrite = ControlValues[7];
+assign MemRead = ControlValues[6];
+assign MemWrite = ControlValues[5];
+assign BranchNE = ControlValues[4];
+assign BranchEQ = ControlValues[3];
+assign ALUOp = ControlValues[2:0];	
 
 endmodule
 
