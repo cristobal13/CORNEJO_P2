@@ -31,7 +31,11 @@ wire ORForBranch;
 wire ALUSrc_wire;
 wire mux4mux_wire;  //
 wire RegWrite_wire;
+wire Mem2Reg_wire; //
+wire mem_reg_wire; //
+wire MemWrite_wire;
 wire Zero_wire;
+wire MemRead_wire;
 wire [2:0] ALUOp_wire;
 wire [3:0] ALUOperation_wire;
 wire [4:0] shamt_Wire;
@@ -51,6 +55,7 @@ wire [31:0]	Sl_Adder_to_mux; //check
 wire [31:0] mux2mux_wire; //
 wire [31:0]	shift2mux_wire;
 wire [31:0]	add2add;
+wire [31:0]	ReadDataMem_wire;
 integer ALUStatus;
 
 
@@ -68,7 +73,10 @@ ControlUnit
 	.BranchEQ(BranchEQ_wire),
 	.ALUOp(ALUOp_wire),
 	.ALUSrc(ALUSrc_wire),
-	.RegWrite(RegWrite_wire)
+	.RegWrite(RegWrite_wire),
+	.MemWrite(MemWrite_wire),
+	.MemRead(MemRead_wire),
+	.MemtoReg(Mem2Reg_wire)
 );
 
 PC_Register
@@ -131,7 +139,7 @@ Register_File
 	.WriteRegister(WriteRegister_wire),
 	.ReadRegister1(Instruction_wire[25:21]),
 	.ReadRegister2(Instruction_wire[20:16]),
-	.WriteData(ALUResult_wire),
+	.WriteData(ReadData_ALUResult_wire),
 	.ReadData1(ReadData1_wire),
 	.ReadData2(ReadData2_wire)
 
@@ -232,12 +240,25 @@ DataMemory
 )
 RAM
 (
-	.WriteData(ReadData2_wire),
+	.WriteData(Data2Reg),
 	.Address(ALUResult_wire),
 	.clk(clk),
-	.ReadData(ReadDataMem_wire),
+	.ReadData(mem_reg_wire),
 	.MemWrite(MemWrite_wire),
 	.MemRead(MemRead_wire)
+);
+
+Multiplexer2to1
+#(
+	.NBits(32)
+)
+MUX_RAM_Register
+(
+	.Selector(Mem2Reg_wire),
+	.MUX_Data0(ALUResult_wire),
+	.MUX_Data1(mem_reg_wire),
+	
+	.MUX_Output(ReadData_ALUResult_wire)
 );
 
 ALU
