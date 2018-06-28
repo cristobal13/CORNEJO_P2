@@ -59,6 +59,7 @@ wire [31:0] mux2mux_wire; //
 wire [31:0]	shift2mux_wire;
 wire [31:0]	add2add;
 wire [31:0]	ReadDataMem_wire;
+wire [31:0] mux2PC_wire;
 integer ALUStatus;
 
 
@@ -82,7 +83,7 @@ ControlUnit
 	.MemtoReg(Mem2Reg_wire)
 );
 
-PC_Register
+PC_Register				//PC
 ProgramCounter
 (
 	.clk(clk),
@@ -167,7 +168,7 @@ ShiftLeft_PC			//
 Adder32bits
 Shiftl_Adder			//
 (
-	.Data0(add2add),
+	.Data0(PC_4_wire),
 	.Data1(sll_to_add_wire),
 	
 	.Result(Sl_Adder_to_mux) 
@@ -175,7 +176,22 @@ Shiftl_Adder			//
 
 
 
-/*Multiplexer2to1		//  old one
+ Multiplexer2to1		//  old one
+#(
+	.NBits(32)
+)
+MUX_For_Mux
+(
+	.Selector(branch_wire),
+	.MUX_Data0(add2add),
+	.MUX_Data1(Sl_Adder_to_mux),
+	
+	.MUX_Output(mux2mux_wire)
+
+);
+
+
+/*Multiplexer3to1		//mux321
 #(
 	.NBits(32)
 )
@@ -184,27 +200,12 @@ MUX_For_Mux
 	.Selector(mux4mux_wire),
 	.MUX_Data0(add2add),
 	.MUX_Data1(Sl_Adder_to_mux),
+	.MUX_Data2(branch_wire),
 	
 	.MUX_Output(mux2mux_wire)
 
 );
 */
-
-Multiplexer3to1		//mux321
-#(
-	.NBits(32)
-)
-MUX_For_Mux
-(
-	.Selector(mux4mux_wire),
-	.MUX_Data0(add2add),
-	.MUX_Data1(Sl_Adder_to_mux),
-	.MUX_Data2(Sl_Adder_to_mux),
-	
-	.MUX_Output(mux2mux_wire)
-
-);
-
 
 
 ShiftLeft2
@@ -215,7 +216,7 @@ ShiftLeft_Mux_Alu			//
 );
 
 
-/*Multiplexer2to1		//
+Multiplexer2to1		// MUX_PC
 #(
 	.NBits(32)
 )
@@ -225,10 +226,10 @@ MUX_For_PC
 	.MUX_Data0(shift2mux_wire),
 	.MUX_Data1(mux2mux_wire),
 	
-	.MUX_Output(PC_4_wire)
+	.MUX_Output(mux2PC_wire)
 
 );
-*/
+
 
 Multiplexer2to1
 #(
