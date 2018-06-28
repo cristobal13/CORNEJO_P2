@@ -105,7 +105,7 @@ PC_Puls_4
 	.Data0(PC_wire),
 	.Data1(4),
 	
-	.Result(add2add) /////adder
+	.Result(PC_4_wire) /////adder
 );
 
 
@@ -139,7 +139,7 @@ Register_File
 	.WriteRegister(WriteRegister_wire),
 	.ReadRegister1(Instruction_wire[25:21]),
 	.ReadRegister2(Instruction_wire[20:16]),
-	.WriteData(ReadData_ALUResult_wire),
+	.WriteData(ALUResult_wire),
 	.ReadData1(ReadData1_wire),
 	.ReadData2(ReadData2_wire)
 
@@ -194,7 +194,7 @@ ShiftLeft_Mux_Alu			//
 );
 
 
-Multiplexer2to1		//
+/*Multiplexer2to1		//
 #(
 	.NBits(32)
 )
@@ -207,7 +207,7 @@ MUX_For_PC
 	.MUX_Output(PC_4_wire)
 
 );
-
+*/
 
 Multiplexer2to1
 #(
@@ -224,6 +224,9 @@ MUX_ForReadDataAndInmediate
 );
 
 
+//ANDGATE
+//ZERO_Branch
+
 ALUControl
 ArithmeticLogicUnitControl
 (
@@ -232,6 +235,8 @@ ArithmeticLogicUnitControl
 	.ALUOperation(ALUOperation_wire)
 
 );
+
+
 
 DataMemory
 #(
@@ -271,6 +276,7 @@ ArithmeticLogicUnit
 	.ALUResult(ALUResult_wire),
 	.shamt(Instruction_wire[10:6])
 );
+
 
 assign ALUResultOut = ALUResult_wire;
 

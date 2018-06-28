@@ -48,7 +48,7 @@ always@(OP) begin
 		I_Type_LUI:   ControlValues= 11'b0_101_01_00_101;
 		
 		default:
-			ControlValues= 10'b0000000000;
+			ControlValues= 11'b0000000000;
 		endcase
 end	
 	
