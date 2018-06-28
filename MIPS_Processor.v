@@ -175,7 +175,7 @@ Shiftl_Adder			//
 
 
 
-Multiplexer2to1		//
+/*Multiplexer2to1		//  old one
 #(
 	.NBits(32)
 )
@@ -188,6 +188,24 @@ MUX_For_Mux
 	.MUX_Output(mux2mux_wire)
 
 );
+*/
+
+Multiplexer3to1		//mux321
+#(
+	.NBits(32)
+)
+MUX_For_Mux
+(
+	.Selector(mux4mux_wire),
+	.MUX_Data0(add2add),
+	.MUX_Data1(Sl_Adder_to_mux),
+	.MUX_Data2(Sl_Adder_to_mux),
+	
+	.MUX_Output(mux2mux_wire)
+
+);
+
+
 
 ShiftLeft2
 ShiftLeft_Mux_Alu			//
@@ -222,7 +240,7 @@ MUX_ForReadDataAndInmediate
 	.MUX_Data0(ReadData2_wire),
 	.MUX_Data1(InmmediateExtend_wire),
 	
-	.MUX_Output(ReadData2OrInmmediate_wire)
+	.MUX_Output(branch_wire)
 
 );
 
@@ -248,7 +266,7 @@ BNE			 // AND1
 
 );
 
-ORGate
+ORGate		// Or
 Beq_Or
 (
 	.A(beq_wire),
