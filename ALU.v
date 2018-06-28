@@ -34,7 +34,6 @@ localparam SUB = 4'b0100;
 localparam LUI = 4'b0101;
 localparam SLL = 4'b0110;
 localparam SRL	= 4'b0111;
-
    
    always @ (A or B or ALUOperation)
      begin
