@@ -48,7 +48,7 @@ wire [31:0] ReadData2_wire;
 wire [31:0] InmmediateExtend_wire;
 wire [31:0] ReadData2OrInmmediate_wire;
 wire [31:0] ALUResult_wire;
-wire [31:0] PC_4_wire;
+wire [35:0] PC_4_wire;
 wire [31:0] InmmediateExtendAnded_wire;
 wire [31:0] PCtoBranch_wire;
 wire [31:0]	Sl_Adder_to_mux; //check
@@ -194,7 +194,7 @@ ShiftLeft_Mux_Alu			//
 );
 
 
-/*Multiplexer2to1		//
+Multiplexer2to1		//
 #(
 	.NBits(32)
 )
@@ -207,7 +207,8 @@ MUX_For_PC
 	.MUX_Output(PC_4_wire)
 
 );
-*/
+
+
 
 Multiplexer2to1
 #(
@@ -224,7 +225,14 @@ MUX_ForReadDataAndInmediate
 );
 
 
-//ANDGATE
+ANDGate
+ANDGATE
+(
+	.A(BranchEQ_wire),
+	.B(Zero_wire),
+	.C(ZeroANDBrachEQ)
+
+);
 //ZERO_Branch
 
 ALUControl
