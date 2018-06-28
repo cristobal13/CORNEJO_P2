@@ -240,7 +240,7 @@ MUX_ForReadDataAndInmediate
 	.MUX_Data0(ReadData2_wire),
 	.MUX_Data1(InmmediateExtend_wire),
 	
-	.MUX_Output(branch_wire)
+	.MUX_Output(ReadData2OrInmmediate_wire)
 
 );
 

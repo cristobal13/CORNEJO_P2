@@ -56,6 +56,9 @@ always@(Selector)begin
 		R_Type_SLL: 	ALUControlValues = 4'b0110;
 		R_Type_SRL: 	ALUControlValues = 4'b0111;
 		I_Type_ANDI:   ALUControlValues = 4'b0000;
+		I_Type_BEQ:    ALUControlValues = 4'b1000;
+		I_Type_BNE:    ALUControlValues = 4'b1000;
+
 		default: ALUControlValues = 4'b1001;
 	endcase
 end

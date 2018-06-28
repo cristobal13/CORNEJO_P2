@@ -47,6 +47,9 @@ always@(OP) begin
 		I_Type_ORI:   ControlValues= 11'b0_101_00_00_101;
 		I_Type_LUI:   ControlValues= 11'b0_101_01_00_101;
 		
+		I_Type_BEQ:   ControlValues= 11'b0_000_00_01_001;
+		I_Type_BNE:   ControlValues= 11'b0_000_00_10_001;
+		
 		default:
 			ControlValues= 11'b0000000000;
 		endcase
