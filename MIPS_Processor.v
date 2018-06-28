@@ -35,6 +35,9 @@ wire Mem2Reg_wire; //
 wire mem_reg_wire; //
 wire MemWrite_wire;
 wire Zero_wire;
+wire bne_wire;
+wire beq_wire;
+wire branch_wire;  //branch
 wire MemRead_wire;
 wire [2:0] ALUOp_wire;
 wire [3:0] ALUOperation_wire;
@@ -224,8 +227,35 @@ MUX_ForReadDataAndInmediate
 );
 
 
-//ANDGATE
-//ZERO_Branch
+ANDGate
+BEQ			 // AND1
+(
+	.A(BranchEQ_wire),
+	.B(Zero_wire),  //
+	
+	.C(beq_wire)
+
+);
+
+
+ANDGate
+BNE			 // AND1
+(
+	.A(BranchNE_wire),
+	.B(Zero_wire),  //
+	
+	.C(bne_wire)
+
+);
+
+ORGate
+Beq_Or
+(
+	.A(beq_wire),
+	.B(bne_wire),
+	
+	.C(branch_wire)
+);
 
 ALUControl
 ArithmeticLogicUnitControl
