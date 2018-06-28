@@ -29,7 +29,12 @@ wire NotZeroANDBrachNE;
 wire ZeroANDBrachEQ;
 wire ORForBranch;
 wire ALUSrc_wire;
+<<<<<<< HEAD
+wire mux_for_pc;
+//wire 
+=======
 wire mux4mux_wire;  //
+>>>>>>> 7c86a61b265d5741bc06b58a307655c539dad504
 wire RegWrite_wire;
 wire Mem2Reg_wire; //
 wire mem_reg_wire; //
@@ -46,6 +51,8 @@ wire [31:0] Instruction_wire;
 wire [31:0] ReadData1_wire;
 wire [31:0] ReadData2_wire;
 wire [31:0] InmmediateExtend_wire;
+wire [31:0] sll_to_add_wire;
+wire [31:0] adder_to_mux_wire;
 wire [31:0] ReadData2OrInmmediate_wire;
 wire [31:0] ALUResult_wire;
 wire [31:0] PC_4_wire;
@@ -109,11 +116,55 @@ PC_Puls_4
 );
 
 
-//******************************************************************/
-//******************************************************************/
-//******************************************************************/
-//******************************************************************/
-//******************************************************************/
+ShiftLeft2
+ShiftLeft_PC
+(
+	.DataInput(InmmediateExtend_wire),
+	.DataOutput(sll_to_add_wire)         
+);
+
+
+Adder32bits
+SL2_Adder							//ssl to add to mux
+(
+	.Data0(PC_4_wire),
+	.Data1(sll_to_add_wire),
+
+	.Result(adder_to_mux_wire)
+);
+
+
+
+Multiplexer2to1			//
+#(
+	.NBits(32)
+)
+MUX_For_SLL_Adder			//
+(
+	.Selector(sll_wire),
+	.MUX_Data0(adder_to_mux_wire),
+	.MUX_Data1(),
+	
+	.MUX_Output(Mux_to_Mux_wire)
+
+);
+
+Multiplexer2to1			//
+#(
+	.NBits(32)
+)
+MUX_For_PC			//
+(
+	.Selector(mux_for_pc),
+	.MUX_Data0(),
+	.MUX_Data1(Mux_to_Mux_wire),
+	
+	.MUX_Output(Mux_to_Mux_wire)
+
+);
+
+
+
 Multiplexer2to1
 #(
 	.NBits(5)
@@ -205,6 +256,7 @@ MUX_For_PC
 	.MUX_Data1(mux2mux_wire),
 	
 	.MUX_Output(PC_4_wire)
+
 );
 */
 
@@ -281,3 +333,4 @@ assign ALUResultOut = ALUResult_wire;
 
 
 endmodule
+

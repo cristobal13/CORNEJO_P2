@@ -52,7 +52,7 @@ always@(OP) begin
 	// I_Type_BEQ:   ControlValues= 11'b0_100_00_00_100;
 		
 		default:
-			ControlValues= 10'b0000000000;
+			ControlValues= 11'b0000000000;
 		endcase
 end	
 	
