@@ -29,6 +29,7 @@ wire NotZeroANDBrachNE;
 wire ZeroANDBrachEQ;
 wire ORForBranch;
 wire ALUSrc_wire;
+wire mux4mux_wire;  //
 wire RegWrite_wire;
 wire Zero_wire;
 wire [2:0] ALUOp_wire;
@@ -46,6 +47,10 @@ wire [31:0] ALUResult_wire;
 wire [31:0] PC_4_wire;
 wire [31:0] InmmediateExtendAnded_wire;
 wire [31:0] PCtoBranch_wire;
+wire [31:0]	Sl_Adder_to_mux; //check
+wire [31:0] mux2mux_wire; //
+wire [31:0]	shift2mux_wire;
+wire [31:0]	add2add;
 integer ALUStatus;
 
 
@@ -92,7 +97,7 @@ PC_Puls_4
 	.Data0(PC_wire),
 	.Data1(4),
 	
-	.Result(PC_4_wire)
+	.Result(add2add) /////adder
 );
 
 
@@ -141,10 +146,58 @@ SignExtendForConstants
 
 
 ShiftLeft2
-ShiftLeft_PC
+ShiftLeft_PC			//
 (
 	.DataInput(InmmediateExtend_wire),
 	.DataOutput(sll_to_add_wire)         
+);
+
+
+Adder32bits
+Shiftl_Adder			//
+(
+	.Data0(add2add),
+	.Data1(sll_to_add_wire),
+	
+	.Result(Sl_Adder_to_mux) 
+);
+
+
+
+Multiplexer2to1		//
+#(
+	.NBits(32)
+)
+MUX_For_Mux
+(
+	.Selector(mux4mux_wire),
+	.MUX_Data0(add2add),
+	.MUX_Data1(Sl_Adder_to_mux),
+	
+	.MUX_Output(mux2mux_wire)
+
+);
+
+ShiftLeft2
+ShiftLeft_Mux_Alu			//
+(
+	.DataInput(Instruction_wire[15:0]),
+	.DataOutput(shift2mux_wire)         
+);
+
+
+Multiplexer2to1		//
+#(
+	.NBits(32)
+)
+MUX_For_PC
+(
+	.Selector(mux4PC),
+	.MUX_Data0(shift2mux_wire),
+	.MUX_Data1(mux2mux_wire),
+	
+	.MUX_Output(PC_4_wire)
+
 );
 
 
