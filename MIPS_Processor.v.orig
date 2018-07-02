@@ -29,15 +29,17 @@ wire NotZeroANDBrachNE;
 wire ZeroANDBrachEQ;
 wire ORForBranch;
 wire ALUSrc_wire;
+<<<<<<< HEAD
+wire mux_for_pc;
+//wire 
+=======
 wire mux4mux_wire;  //
+>>>>>>> 7c86a61b265d5741bc06b58a307655c539dad504
 wire RegWrite_wire;
 wire Mem2Reg_wire; //
 wire mem_reg_wire; //
 wire MemWrite_wire;
 wire Zero_wire;
-wire bne_wire;
-wire beq_wire;
-wire branch_wire;  //branch
 wire MemRead_wire;
 wire [2:0] ALUOp_wire;
 wire [3:0] ALUOperation_wire;
@@ -49,6 +51,8 @@ wire [31:0] Instruction_wire;
 wire [31:0] ReadData1_wire;
 wire [31:0] ReadData2_wire;
 wire [31:0] InmmediateExtend_wire;
+wire [31:0] sll_to_add_wire;
+wire [31:0] adder_to_mux_wire;
 wire [31:0] ReadData2OrInmmediate_wire;
 wire [31:0] ALUResult_wire;
 wire [31:0] PC_4_wire;
@@ -59,9 +63,8 @@ wire [31:0] mux2mux_wire; //
 wire [31:0]	shift2mux_wire;
 wire [31:0]	add2add;
 wire [31:0]	ReadDataMem_wire;
-wire [31:0] mux2PC_wire;
 integer ALUStatus;
-wire [31:0] lwwire;
+
 
 //******************************************************************/
 //******************************************************************/
@@ -83,7 +86,7 @@ ControlUnit
 	.MemtoReg(Mem2Reg_wire)
 );
 
-PC_Register				//PC
+PC_Register
 ProgramCounter
 (
 	.clk(clk),
@@ -113,11 +116,55 @@ PC_Puls_4
 );
 
 
-//******************************************************************/
-//******************************************************************/
-//******************************************************************/
-//******************************************************************/
-//******************************************************************/
+ShiftLeft2
+ShiftLeft_PC
+(
+	.DataInput(InmmediateExtend_wire),
+	.DataOutput(sll_to_add_wire)         
+);
+
+
+Adder32bits
+SL2_Adder							//ssl to add to mux
+(
+	.Data0(PC_4_wire),
+	.Data1(sll_to_add_wire),
+
+	.Result(adder_to_mux_wire)
+);
+
+
+
+Multiplexer2to1			//
+#(
+	.NBits(32)
+)
+MUX_For_SLL_Adder			//
+(
+	.Selector(sll_wire),
+	.MUX_Data0(adder_to_mux_wire),
+	.MUX_Data1(),
+	
+	.MUX_Output(Mux_to_Mux_wire)
+
+);
+
+Multiplexer2to1			//
+#(
+	.NBits(32)
+)
+MUX_For_PC			//
+(
+	.Selector(mux_for_pc),
+	.MUX_Data0(),
+	.MUX_Data1(Mux_to_Mux_wire),
+	
+	.MUX_Output(Mux_to_Mux_wire)
+
+);
+
+
+
 Multiplexer2to1
 #(
 	.NBits(5)
@@ -128,24 +175,9 @@ MUX_ForRTypeAndIType
 	.MUX_Data0(Instruction_wire[20:16]),
 	.MUX_Data1(Instruction_wire[15:11]),
 	
-	.MUX_Output(lwwire)
-
-);
-
-Multiplexer2to1		//  MUX2WDATA
-#(
-	.NBits(32)
-)
-MUX_For_Mux2
-(
-	.Selector(RegDst_wire),
-	.MUX_Data0(lwwire),
-	.MUX_Data1(PC_4_wire),
-	
 	.MUX_Output(WriteRegister_wire)
 
 );
-
 
 
 
@@ -183,7 +215,7 @@ ShiftLeft_PC			//
 Adder32bits
 Shiftl_Adder			//
 (
-	.Data0(PC_4_wire),
+	.Data0(add2add),
 	.Data1(sll_to_add_wire),
 	
 	.Result(Sl_Adder_to_mux) 
@@ -191,23 +223,19 @@ Shiftl_Adder			//
 
 
 
- Multiplexer2to1		//  old one
+Multiplexer2to1		//
 #(
 	.NBits(32)
 )
 MUX_For_Mux
 (
-	.Selector(branch_wire),
+	.Selector(mux4mux_wire),
 	.MUX_Data0(add2add),
 	.MUX_Data1(Sl_Adder_to_mux),
 	
 	.MUX_Output(mux2mux_wire)
 
 );
-
-
-
-
 
 ShiftLeft2
 ShiftLeft_Mux_Alu			//
@@ -217,7 +245,7 @@ ShiftLeft_Mux_Alu			//
 );
 
 
-Multiplexer2to1		// MUX_PC
+/*Multiplexer2to1		//
 #(
 	.NBits(32)
 )
@@ -227,10 +255,10 @@ MUX_For_PC
 	.MUX_Data0(shift2mux_wire),
 	.MUX_Data1(mux2mux_wire),
 	
-	.MUX_Output(mux2PC_wire)
+	.MUX_Output(PC_4_wire)
 
 );
-
+*/
 
 Multiplexer2to1
 #(
@@ -247,37 +275,9 @@ MUX_ForReadDataAndInmediate
 );
 
 
+//ANDGATE
+//ZERO_Branch
 
-ANDGate
-BEQ			 // AND1
-(
-	.A(BranchEQ_wire),
-	.B(Zero_wire),  //
-	
-	.C(beq_wire)
-
-);
-
-
-ANDGate
-BNE			 // AND1
-(
-	.A(BranchNE_wire),
-	.B(Zero_wire),  //
-	
-	.C(bne_wire)
-
-);
-/*
-ORGate		// Or
-Beq_Or
-(
-	.A(beq_wire),
-	.B(bne_wire),
-	
-	.C(branch_wire)
-);
-*/
 ALUControl
 ArithmeticLogicUnitControl
 (
