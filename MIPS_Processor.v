@@ -38,6 +38,8 @@ wire Zero_wire;
 wire bne_wire;
 wire beq_wire;
 wire branch_wire;  //branch
+//wire JR_sel;		// to do jr
+wire J_wire;         //jump
 wire MemRead_wire;
 wire [2:0] ALUOp_wire;
 wire [3:0] ALUOperation_wire;
@@ -60,6 +62,7 @@ wire [31:0]	shift2mux_wire;
 wire [31:0]	add2add;
 wire [31:0]	ReadDataMem_wire;
 wire [31:0] mux2PC_wire;
+//wire [31:0] JR_wire; //jr to do
 integer ALUStatus;
 
 
@@ -80,7 +83,8 @@ ControlUnit
 	.RegWrite(RegWrite_wire),
 	.MemWrite(MemWrite_wire),
 	.MemRead(MemRead_wire),
-	.MemtoReg(Mem2Reg_wire)
+	.MemtoReg(Mem2Reg_wire),
+	.J(j_wire)
 );
 
 PC_Register				//PC
@@ -88,7 +92,7 @@ ProgramCounter
 (
 	.clk(clk),
 	.reset(reset),
-	.NewPC(PC_4_wire),
+	.NewPC(JR_wire),
 	.PCValue(PC_wire)
 );
 
@@ -226,7 +230,7 @@ MUX_For_PC
 	.MUX_Data0(shift2mux_wire),
 	.MUX_Data1(mux2mux_wire),
 	
-	.MUX_Output(mux2PC_wire)
+	.MUX_Output(mux2PC_wire[25:0])   //jump1
 
 );
 

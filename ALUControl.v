@@ -17,6 +17,7 @@ module ALUControl
 	input [2:0] ALUOp,
 	input [5:0] ALUFunction,
 	output [3:0] ALUOperation
+	
 
 );
 
@@ -25,6 +26,8 @@ localparam R_Type_OR     = 9'b0111_100101;
 localparam R_Type_NOR    = 9'b0111_100111;
 localparam R_Type_ADD    = 9'b0111_100000;
 localparam R_Type_SUB    = 9'b0111_100010;
+
+//localparam R_Type_JR     = 9'b111_001000;
 
 localparam I_Type_ANDI   = 9'b0000_xxxxxx;	 
 localparam I_Type_ADDI   = 9'b0100_xxxxxx;
@@ -36,6 +39,8 @@ localparam I_Type_BNE    = 9'b1101_xxxxxx;
 
 localparam R_Type_SLL 	 = 9'b0111_000000;
 localparam R_Type_SRL	 = 9'b0111_000010;
+
+localparam J_Type_J      = 9'b101_xxxxxx;
 
 reg [3:0] ALUControlValues;
 wire [8:0] Selector;
@@ -58,6 +63,8 @@ always@(Selector)begin
 		I_Type_ANDI:   ALUControlValues = 4'b0000;
 		I_Type_BEQ:    ALUControlValues = 4'b1000;
 		I_Type_BNE:    ALUControlValues = 4'b1000;
+		
+		J_Type_J:     ALUControlValues  = 4'b0101;
 
 		default: ALUControlValues = 4'b1001;
 	endcase
