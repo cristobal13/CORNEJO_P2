@@ -229,7 +229,7 @@ MUX_For_PC
 	.MUX_Data0(shift2mux_wire),
 	.MUX_Data1(mux2mux_wire),
 	
-	.MUX_Output(mux2PC_wire[25:0])   //jump1
+	.MUX_Output(JR_wire)   //jump1
 	
 
 );
@@ -271,7 +271,7 @@ BNE			 // AND1
 	.C(bne_wire)
 
 );
-/*
+
 ORGate		// Or
 Beq_Or
 (
@@ -280,7 +280,7 @@ Beq_Or
 	
 	.C(branch_wire)
 );
-*/
+
 ALUControl
 ArithmeticLogicUnitControl
 (

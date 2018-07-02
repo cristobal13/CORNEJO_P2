@@ -39,6 +39,7 @@ localparam R_Type_SRL	 = 9'b0111_000010;
 localparam I_Type_LW     = 9'b1001_xxxxxx;
 localparam I_Type_SW     = 9'b1010_xxxxxx;
 localparam J_Type_J      = 9'b0101_xxxxxx;
+localparam J_Type_JAL    = 9'b0101_xxxxxx;
 
 
 reg [3:0] ALUControlValues;
@@ -65,7 +66,7 @@ always@(Selector)begin
 		I_Type_LW:		ALUControlValues = 4'b0011;
 		I_Type_SW:		ALUControlValues = 4'b0011;
 		J_Type_J:     ALUControlValues  = 4'b0101;
-		
+		J_Type_JAL:   ALUControlValues  = 4'b0101;
 		
 		default: ALUControlValues = 4'b1001;
 	endcase

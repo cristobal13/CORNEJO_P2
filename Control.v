@@ -53,12 +53,15 @@ always@(OP) begin
  		
 		
 		I_Type_BEQ:   ControlValues= 12'b00_000_00_01_001;
-+		I_Type_BNE:   ControlValues= 12'b00_000_00_10_001;
+		I_Type_BNE:   ControlValues= 12'b00_000_00_10_001;
 		I_Type_LW:	  ControlValues= 11'b00_011_11_00_011;
 		I_Type_SW:	  ControlValues= 11'b00_010_00_01_011;
 		
+		J_Type_J:	  ControlValues= 12'b10_000_00_00_000;
+		//J_Type_JAL:	  ControlValues= 12'b11_001_00_00_000;
+		
 		default:
-			ControlValues= 11'b0000000000;
+			ControlValues= 12'b00000000000;
 		endcase
 end	
 assign Jump = ControlValues[11];	
