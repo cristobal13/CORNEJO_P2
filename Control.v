@@ -54,7 +54,7 @@ always@(OP) begin
 			ControlValues= 11'b0000000000;
 		endcase
 end	
-	
+	 
 assign RegDst = ControlValues[10];
 assign ALUSrc = ControlValues[9];
 assign MemtoReg = ControlValues[8];
