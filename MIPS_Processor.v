@@ -24,6 +24,7 @@ assign  PortOut = 0;
 // Data types to connect modules
 wire BranchNE_wire;
 wire BranchEQ_wire;
+wire J_wire;         //jump
 wire RegDst_wire;
 wire NotZeroANDBrachNE;
 wire ZeroANDBrachEQ;
@@ -80,7 +81,8 @@ ControlUnit
 	.RegWrite(RegWrite_wire),
 	.MemWrite(MemWrite_wire),
 	.MemRead(MemRead_wire),
-	.MemtoReg(Mem2Reg_wire)
+	.MemtoReg(Mem2Reg_wire),
+	.J(j_wire)
 );
 
 PC_Register				//PC
@@ -88,8 +90,8 @@ ProgramCounter
 (
 	.clk(clk),
 	.reset(reset),
-	.NewPC(PC_4_wire),
-	.PCValue(PC_wire)
+	.PCValue(PC_wire),
+	.NewPC(JR_wire)
 );
 
 
@@ -227,7 +229,8 @@ MUX_For_PC
 	.MUX_Data0(shift2mux_wire),
 	.MUX_Data1(mux2mux_wire),
 	
-	.MUX_Output(mux2PC_wire)
+	.MUX_Output(mux2PC_wire[25:0])   //jump1
+	
 
 );
 
