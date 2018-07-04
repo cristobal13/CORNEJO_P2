@@ -1,6 +1,4 @@
 
-
-
 module MIPS_Processor
 #(
 	parameter MEMORY_DEPTH = 32
@@ -157,20 +155,6 @@ MUX_ForRTypeAndIType
 	.Selector(RegDst_wire),
 	.MUX_Data0(Instruction_wire[20:16]),
 	.MUX_Data1(Instruction_wire[15:11]),
-	
-	.MUX_Output(lwwire)
-
-);
-
-Multiplexer2to1		//  MUX2WDATA
-#(
-	.NBits(32)
-)
-MUX_For_Mux2      
-(
-	.Selector(RegDst_wire),
-	.MUX_Data0(lwwire),
-	.MUX_Data1(PC_4_wire),
 	
 	.MUX_Output(WriteRegister_wire)
 
@@ -400,4 +384,3 @@ assign ALUResultOut = ALUResult_wire;
 
 
 endmodule
-
