@@ -24,7 +24,7 @@ module Control
 	output ALUSrc,
 	output RegWrite,
 	output J,
-	output JR
+	output JR,
 	output [2:0]ALUOp
 	
 );

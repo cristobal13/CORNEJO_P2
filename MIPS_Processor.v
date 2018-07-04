@@ -62,7 +62,7 @@ wire [31:0]	shift2mux_wire;
 wire [31:0]	add2add;
 wire [31:0]	ReadDataMem_wire;
 wire [31:0] mux2PC_wire;
-
+wire [31:0]	jr2pc_wire;
 
 integer ALUStatus;
 wire [31:0] lwwire;
@@ -93,13 +93,13 @@ Multiplexer2to1		//  MUX4jr
 #(
 	.NBits(32)
 )
-MUX_For_Mux2
+MUX_For_jr
 (
 	.Selector(jr_wire),
-	.MUX_Data0(lwwire),
-	.MUX_Data1(PC_4_wire),
+	.MUX_Data0(WriteRegister_wire),
+	.MUX_Data1(JR_wire),
 	
-	.MUX_Output(WriteRegister_wire)
+	.MUX_Output(jr2pc_wire)
 
 );
 
