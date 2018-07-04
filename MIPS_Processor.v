@@ -166,7 +166,7 @@ Multiplexer2to1		//  MUX2WDATA
 #(
 	.NBits(32)
 )
-MUX_For_Mux2
+MUX_For_Mux2      
 (
 	.Selector(RegDst_wire),
 	.MUX_Data0(lwwire),
