@@ -25,6 +25,7 @@ module Control
 	output RegWrite,
 	output J,
 	output JR,
+	output Jal,
 	output [2:0]ALUOp
 	
 );
@@ -43,7 +44,7 @@ localparam J_Type_J    = 6'h02;
 
 
 
-reg [11:0] ControlValues;
+reg [12:0] ControlValues;
 
 always@(OP) begin
 	casex(OP)
