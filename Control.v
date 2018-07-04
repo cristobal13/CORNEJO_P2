@@ -59,7 +59,7 @@ always@(OP) begin
 		I_Type_BEQ:   ControlValues= 14'b00_00_000_00_01_001;
 		I_Type_BNE:   ControlValues= 14'b00_00_000_00_10_001;
 		I_Type_LW:	  ControlValues= 14'b00_00_111_10_00_011;
-		I_Type_SW:	  ControlValues= 14'b00_00_100_01_0_011;
+		I_Type_SW:	  ControlValues= 14'b00_00_100_01_00_011;
 		
 		J_Type_J:	  ControlValues= 14'b00_10_000_00_00_000;
 		J_Type_JAL:	  ControlValues= 14'b10_11_001_00_00_000;
