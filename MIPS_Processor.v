@@ -1,4 +1,5 @@
 
+
 module MIPS_Processor
 #(
 	parameter MEMORY_DEPTH = 32
@@ -105,7 +106,7 @@ MUX_For_jr
 (
 	.Selector(jr_wire),
 	.MUX_Data0(address),
-	.MUX_Data1(JR_wire),
+	.MUX_Data1(ReadData1_wire),
 	
 	.MUX_Output(jr2pc_wire)
 
@@ -213,7 +214,7 @@ Shiftl_Adder			//
 MUX_For_Mux
 (
 	.Selector(branch_wire),
-	.MUX_Data0(add2add),
+	.MUX_Data0(PC_4_wire),
 	.MUX_Data1(Sl_Adder_to_mux),
 	
 	.MUX_Output(mux2mux_wire)
