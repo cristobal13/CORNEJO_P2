@@ -24,7 +24,6 @@ module Control
 	output ALUSrc,
 	output RegWrite,
 	output J,
-	output JR,
 	output Jal,
 	output [2:0]ALUOp
 	

@@ -92,7 +92,6 @@ ControlUnit
 	.MemRead(MemRead_wire),
 	.MemtoReg(Mem2Reg_wire),
 	.J(j_wire),
-	.JR(jr_wire),
 	.Jal(jal_wire)
 );
 
