@@ -1,5 +1,3 @@
-
-
 module MIPS_Processor
 #(
 	parameter MEMORY_DEPTH = 32
@@ -23,7 +21,7 @@ assign  PortOut = 0;
 // Data types to connect modules
 wire BranchNE_wire;
 wire BranchEQ_wire;
-wire J_wire;         //jump
+wire j_wire;         //jump
 wire RegDst_wire;
 wire NotZeroANDBrachNE;
 wire ZeroANDBrachEQ;
@@ -71,7 +69,7 @@ wire [31:0] jal_selector;
 wire [31:0] adder2jal_wire;
 wire [31:0] pc4_ReadDataMem_wire;
 wire [31:0] ra_WriteRegister_wire;
-
+wire [31:0] sl2add;
 assign JR_wire = ReadData1_wire;
 assign adder2jal_wire = PC_4_wire;
 //******************************************************************/
@@ -191,8 +189,8 @@ SignExtendForConstants
 ShiftLeft2
 ShiftLeft_PC			//
 (
-	.DataInput(InmmediateExtend_wire),
-	.DataOutput(sll_to_add_wire)         
+	.DataInput(Instruction_wire[25:0]), //InmmediateExtend_wire
+	.DataOutput(sll_to_jmux_wire)         
 );
 
 
@@ -200,7 +198,7 @@ Adder32bits
 Shiftl_Adder			//
 (
 	.Data0(PC_4_wire),
-	.Data1(sll_to_add_wire),
+	.Data1(sl2add), // sll_to_add_wire
 	
 	.Result(Sl_Adder_to_mux) 
 );
@@ -226,10 +224,10 @@ MUX_For_Mux
 
 
 ShiftLeft2
-ShiftLeft_Mux_Alu			//
+ShiftLeft_imm		//
 (
-	.DataInput(Instruction_wire[15:0]),
-	.DataOutput(shift2mux_wire)         
+	.DataInput(InmmediateExtend_wire), // Instruction_wire[15:0]
+	.DataOutput(sl2add) //shift2mux_wire        
 );
 
 
@@ -239,9 +237,9 @@ Multiplexer2to1		// MUX JUMP
 )
 MUX_For_JUMP
 (
-	.Selector(jump),
-	.MUX_Data0(shift2mux_wire),
-	.MUX_Data1(mux2mux_wire),
+	.Selector(j_wire),
+	.MUX_Data0(mux2mux_wire),  //shift2mux_wire
+	.MUX_Data1(sll_to_jmux_wire),  //mux2mux_wire
 	
 	.MUX_Output(address)   //jump1
 	
