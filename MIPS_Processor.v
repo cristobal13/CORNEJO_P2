@@ -83,8 +83,8 @@ ControlUnit
 (
 	.OP(Instruction_wire[31:26]),
 	.RegDst(RegDst_wire),
-	.BranchNE(BranchNE_wire),
-	.BranchEQ(BranchEQ_wire),
+	.BranchNE(NotZeroANDBrachNE),
+	.BranchEQ(ZeroANDBrachEQ),
 	.ALUOp(ALUOp_wire),
 	.ALUSrc(ALUSrc_wire),
 	.RegWrite(RegWrite_wire),
