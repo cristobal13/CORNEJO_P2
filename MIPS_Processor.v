@@ -19,8 +19,8 @@ assign  PortOut = 0;
 //******************************************************************/
 //******************************************************************/
 // Data types to connect modules
-wire BranchNE_wire;
-wire BranchEQ_wire;
+//wire BranchNE_wire;
+//wire BranchEQ_wire;
 wire j_wire;         //jump
 wire RegDst_wire;
 wire NotZeroANDBrachNE;
@@ -72,6 +72,7 @@ wire [31:0] ra_WriteRegister_wire;
 wire [31:0] sl2add;
 assign JR_wire = ReadData1_wire;
 assign adder2jal_wire = PC_4_wire;
+assign NotZero = ~Zero_wire;
 //******************************************************************/
 //******************************************************************/
 //******************************************************************/
@@ -301,8 +302,8 @@ MUX_JAL_31 //jal2
 ANDGate
 BEQ			 // AND1
 (
-	.A(BranchEQ_wire),
-	.B(Zero_wire),  //
+	.A(ZeroANDBrachEQ), 
+	.B(NotZero),  //
 	
 	.C(beq_wire)
 
@@ -312,7 +313,7 @@ BEQ			 // AND1
 ANDGate
 BNE			 // AND1
 (
-	.A(BranchNE_wire),
+	.A(NotZeroANDBrachNE),
 	.B(Zero_wire),  //
 	
 	.C(bne_wire)
