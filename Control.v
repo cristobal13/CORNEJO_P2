@@ -49,7 +49,7 @@ always@(OP) begin
 	   R_Type:       ControlValues= 13'b0_01_001_00_00_111;
 		
 		I_Type_ADDI:  ControlValues= 13'b0_00_101_00_00_100;
-		I_Type_ORI:   ControlValues= 13'b0_00_101_00_00_101;
+		I_Type_ORI:   ControlValues= 13'b0_00_100_00_00_001;
 	   I_Type_LUI:   ControlValues= 13'b0_00_101_01_00_101;
  		
 		
@@ -68,14 +68,19 @@ end
 
 assign Jal = ControlValues[12];	
 assign Jump = ControlValues[11];	
+
 assign RegDst = ControlValues[10];
 assign ALUSrc = ControlValues[9];
+
 assign MemtoReg = ControlValues[8];
 assign RegWrite = ControlValues[7];
+
 assign MemRead = ControlValues[6];
 assign MemWrite = ControlValues[5];
+
 assign BranchNE = ControlValues[4];
 assign BranchEQ = ControlValues[3];
+
 assign ALUOp = ControlValues[2:0];	
 
 endmodule
