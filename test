@@ -1,0 +1,7 @@
+
+
+.text 
+	addi $s2, $zero, 1
+	addi $s3, $zero, 2
+	add $s4, $s3, $s2
+	

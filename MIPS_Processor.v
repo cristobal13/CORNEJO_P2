@@ -83,8 +83,8 @@ ControlUnit
 (
 	.OP(Instruction_wire[31:26]),
 	.RegDst(RegDst_wire),
-	.BranchNE(BranchNE_wire),
-	.BranchEQ(BranchEQ_wire),
+	.BranchNE(NotZeroANDBrachNE),
+	.BranchEQ(ZeroANDBrachEQ),
 	.ALUOp(ALUOp_wire),
 	.ALUSrc(ALUSrc_wire),
 	.RegWrite(RegWrite_wire),
@@ -102,7 +102,7 @@ Multiplexer2to1		//  MUX4jr
 )
 MUX_For_jr
 (
-	.Selector(jr_wire),
+	.Selector(j_wire),
 	.MUX_Data0(address),
 	.MUX_Data1(ReadData1_wire),
 	
