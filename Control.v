@@ -68,14 +68,19 @@ end
 
 assign Jal = ControlValues[12];	
 assign Jump = ControlValues[11];	
+
 assign RegDst = ControlValues[10];
 assign ALUSrc = ControlValues[9];
+
 assign MemtoReg = ControlValues[8];
 assign RegWrite = ControlValues[7];
+
 assign MemRead = ControlValues[6];
 assign MemWrite = ControlValues[5];
+
 assign BranchNE = ControlValues[4];
 assign BranchEQ = ControlValues[3];
+
 assign ALUOp = ControlValues[2:0];	
 
 endmodule
