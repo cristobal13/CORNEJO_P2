@@ -37,8 +37,7 @@ wire bne_wire;
 wire beq_wire;
 wire branch_wire;  //branch
 wire MemRead_wire;
-wire jr_wire;   //jr
-wire jal_wire; //jal
+wire jal_wire_sel; //jal selector
 wire [2:0] ALUOp_wire;
 wire [3:0] ALUOperation_wire;
 wire [4:0] shamt_Wire;
@@ -91,8 +90,9 @@ ControlUnit
 	.MemWrite(MemWrite_wire),
 	.MemRead(MemRead_wire),
 	.MemtoReg(Mem2Reg_wire),
-	.J(j_wire),
-	.Jal(jal_wire)
+	.Jump(j_wire),
+	.Jal(jal_wire),
+	.JR(jal_wire_sel)
 );
 
 
@@ -102,7 +102,7 @@ Multiplexer2to1		//  MUX4jr
 )
 MUX_For_jr
 (
-	.Selector(j_wire),
+	.Selector(jal_wire_sel),
 	.MUX_Data0(address),
 	.MUX_Data1(ReadData1_wire),
 	
