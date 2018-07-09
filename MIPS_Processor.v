@@ -39,7 +39,7 @@ wire branch_wire;  //branch
 wire MemRead_wire;
 wire jal_wire_sel; //jal selector
 wire jr_wire_sel; //jr selector
-wire JR_wire;
+wire [31:0]JR_wire;
 wire [2:0] ALUOp_wire;
 wire [3:0] ALUOperation_wire;
 wire [4:0] shamt_Wire;
@@ -71,7 +71,7 @@ wire [31:0] adder2jal_wire;
 wire [31:0] pc4_ReadDataMem_wire;
 wire [31:0] ra_WriteRegister_wire;
 wire [31:0] sl2add;
-assign JR_wire = ReadData1_wire;
+
 assign adder2jal_wire = PC_4_wire;
 assign NotZero = ~Zero_wire;
 //******************************************************************/
@@ -106,7 +106,7 @@ MUX_For_jr
 (
 	.Selector(jr_wire_sel),
 	.MUX_Data0(address),
-	.MUX_Data1(JR_wire),
+	.MUX_Data1(ReadData1_wire),
 	
 	.MUX_Output(jr2pc_wire)
 
