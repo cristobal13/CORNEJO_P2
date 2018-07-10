@@ -30,7 +30,6 @@ wire ALUSrc_wire;
 wire mux4mux_wire;  //
 wire RegWrite_wire;
 wire Mem2Reg_wire; //
-wire mem_reg_wire; //
 wire MemWrite_wire;
 wire Zero_wire;
 wire bne_wire;
@@ -64,6 +63,7 @@ wire [31:0] mux2PC_wire;
 wire [31:0]	jr2pc_wire;
 wire [31:0] address;
 wire [31:0] DataWriteBackOrPc_4;
+wire [31:0] mem_reg_wire;
 integer ALUStatus;
 wire [31:0] lwwire;
 wire [31:0] jal_selector;
@@ -74,6 +74,7 @@ wire [31:0] sl2add;
 
 assign adder2jal_wire = PC_4_wire;
 assign NotZero = ~Zero_wire;
+
 //******************************************************************/
 //******************************************************************/
 //******************************************************************/
